@@ -4,7 +4,7 @@
         <h3>Vue.js + Python</h3>
         <button @click="incrementerCompteur">Incrémenter</button>
         <p>{{ compteur }}</p>
-        <a href="https://github.com/samigacon/Vue-PHP-Python---Compteur">Lien vers le GitHub du projet</a>
+        <a href="https://github.com/samigacon/Vue-Python-Compteur">Lien vers le GitHub du projet</a>
     </div>
 </template>
 
@@ -16,7 +16,7 @@
     const incrementerCompteur = async () => {
         try {
             console.log('Envoi de la requête au serveur...');
-            const response = await fetch('https://vue-python-compteur-server.vercel.app/index.php', {
+            const response = await fetch('https://vue-python-compteur-server.vercel.app/index.py', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
