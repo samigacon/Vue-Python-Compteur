@@ -24,14 +24,14 @@
                 body: JSON.stringify({ compteur: compteur.value })
             });
 
-            console.log('Réponse reçue du serveur.');
+            // console.log('Réponse reçue du serveur.');
 
             if (!response.ok) {
                 throw new Error('Erreur lors de la requête au serveur');
             }
 
             const data = await response.json();
-            console.log('Données JSON récupérées:', data);
+            // console.log('Données JSON récupérées:', data);
 
             if (!data || typeof data.compteur === 'undefined') {
                 throw new Error('Réponse du serveur invalide');
@@ -40,11 +40,11 @@
             compteur.value = data.compteur;
             sessionStorage.setItem('compteur', compteur.value);
 
-            console.log('Compteur mis à jour:', compteur.value);
-            console.log('Échos du serveur:', data.echo.join('\n'));
+            // console.log('Compteur mis à jour:', compteur.value);
+            // console.log('Échos du serveur:', data.echo.join('\n'));
             
         } catch (error) {
-            console.error('Erreur:', error.message);
+            // console.error('Erreur:', error.message);
         }
     }
 </script>
