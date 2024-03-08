@@ -16,7 +16,7 @@
     const incrementerCompteur = async () => {
         try {
             console.log('Envoi de la requête au serveur...');
-            const response = await fetch('https://vue-python-compteur-server.vercel.app/index.py', {
+            const response = await fetch('https://vue-python-compteur-server.vercel.app/increment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
