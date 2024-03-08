@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 compteur = 0
 
@@ -9,6 +11,7 @@ def increment_counter():
     global compteur
     data = request.get_json()
     if data and 'compteur' in data:
+        compteur = int(data['compteur'])
         compteur += 1
         response = {
             "compteur": compteur,
