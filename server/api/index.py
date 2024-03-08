@@ -1,40 +1,26 @@
-import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from flask import Flask, request, jsonify
 
-class RequestHandler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
-        data = json.loads(post_data)
+app = Flask(__name__)
 
-        if data:
-            compteur = int(data['compteur'])
-            compteur += 1
+compteur = 0
 
-            response = {
-                "compteur": compteur,
-                "echo": ["Le compteur a été incrémenté avec succès en Python"]
-            }
+@app.route('/increment', methods=['POST'])
+def increment_counter():
+    global compteur
+    data = request.get_json()
+    if data and 'compteur' in data:
+        compteur += 1
+        response = {
+            "compteur": compteur,
+            "echo": ["Le compteur a été incrémenté avec succès en Python"]
+        }
+        return jsonify(response), 200
+    else:
+        return jsonify({"error": "Le contenu de la requête n'est pas au format JSON valide."}), 400
 
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(response).encode())
-        else:
-            self.send_error(400, 'Le contenu de la requête n\'est pas au format JSON valide.')
-
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain')
-        self.end_headers()
-        self.wfile.write(b'Hello World')
-
-def run_server():
-    port = 8000
-    server_address = ('', port)
-    httpd = HTTPServer(server_address, RequestHandler)
-    print(f'Serveur démarré sur le port {port}')
-    httpd.serve_forever()
+@app.route('/')
+def hello_world():
+    return 'Hello World'
 
 if __name__ == '__main__':
-    run_server()
+    app.run(debug=True)
